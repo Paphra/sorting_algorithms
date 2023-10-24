@@ -1,20 +1,6 @@
 #include "sort.h"
 
 /**
- * swap - swap function for interchanging
- * @i: first item pointer
- * @j: second item pointer to swap
- * Return: nothing
- */
-void swap(int *i, int *j)
-{
-	int tmp = *i;
-
-	*i = *j;
-	*j = tmp;
-}
-
-/**
  * lomuto - lomuto partitioning
  * @array: the array
  * @low: the lower value
@@ -25,19 +11,25 @@ void swap(int *i, int *j)
 int lomuto(int *array, int low, int high, size_t size)
 {
 	int pivot = array[high];
-	int i = low - 1, j;
+	int i = low - 1, j, tmp;
 
 	for (j = low; j < high; j++)
 	{
 		if (array[j] <= pivot)
 		{
 			i++;
-			swap(&array[i], &array[j]);
+			tmp = array[i];
+			array[i] = array[j];
+			array[j] = tmp;
+
 			if (i != j)
 				print_array(array, size);
 		}
 	}
-	swap(&array[i + 1], &array[high]);
+	tmp = array[i + 1];
+	array[i + 1] = array[high];
+	array[high] = tmp;
+
 	if (i + 1 != high)
 		print_array(array, size);
 	return (i + 1);
