@@ -1,5 +1,20 @@
 #include "sort.h"
 
+
+/**
+ * swap - swaping values
+ * @a: the first address
+ * @b: the second address
+ * Return: nothing
+ */
+void swap(int *a, int *b)
+{
+	int tmp = *a;
+
+	*a = *b;
+	*b = tmp;
+}
+
 /**
  * lomuto - lomuto partitioning
  * @array: the array
@@ -11,28 +26,28 @@
 int lomuto(int *array, int low, int high, size_t size)
 {
 	int pivot = array[high];
-	int i = low - 1, j, tmp;
+	int i = low, j;
 
 	for (j = low; j < high; j++)
 	{
 		if (array[j] <= pivot)
 		{
-			i++;
-			tmp = array[i];
-			array[i] = array[j];
-			array[j] = tmp;
-
 			if (i != j)
+			{
+				swap(&array[i], &array[j]);
 				print_array(array, size);
+			}
+			i++;
 		}
 	}
-	tmp = array[i + 1];
-	array[i + 1] = array[high];
-	array[high] = tmp;
 
-	if (i + 1 != high)
+	if (i != high)
+	{
+		swap(&array[i], &array[high]);
 		print_array(array, size);
-	return (i + 1);
+	}
+
+	return (i);
 }
 
 /**
